@@ -18,9 +18,8 @@ pipeline {
                     git checkout -b master origin/master
                     git merge develop
                 """, label: "Merging code to master"
-                {
-                    sh "git push origin master"
-                }
+             
+                sh "git push origin master"                
 
             }
         }
