@@ -20,7 +20,6 @@ pipeline {
                 """, label: "Merging code to master"
 
                 sshagent(credentials: ["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"]) {
-                    def repository = "git@" + env.GIT_URL.replaceFirst(".+://", "").replaceFirst("/", ":")
                     sh ("git push origin master")
                 }
             }
