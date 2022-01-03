@@ -3,7 +3,7 @@ __pycache__/
 .git
 tests
 pyenvunittests
-.coverage
-coverage.xml
+#.coverage
+#coverage.xml
 .aws
 .ssh
