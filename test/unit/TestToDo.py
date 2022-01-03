@@ -44,6 +44,16 @@ class TestDatabaseFunctions(unittest.TestCase):
         #self.table_local.delete()
         self.dynamodb = None
         print ('End: tearDown')
+        
+    def test_table_no_exists(self):
+        print ('---------------------')
+        print ('Start: test_table_no_exists')
+        tearDown(self)
+        from src.todoList import get_table
+        result = get_table(self.dynamodb)
+        print ('Response GetTable' + str(result))
+        print ('End: test_table_no_exists')
+        
 
     def test_table_exists(self):
         print ('---------------------')
@@ -57,7 +67,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertIn(tableName, self.table.name)
         #self.assertIn('todoTable', self.table_local.name)
         print ('End: test_table_exists')
-        
+         
 
     def test_put_todo(self):
         print ('---------------------')
