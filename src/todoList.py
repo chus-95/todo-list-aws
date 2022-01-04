@@ -9,19 +9,16 @@ from botocore.exceptions import ClientError
 
 def get_table(dynamodb=None):
     if not dynamodb:
-        try:
-            URL = "http://localhost:8000"
-            if URL:
-                print('URL dynamoDB:'+URL)
-                boto3.client = functools.partial(boto3.client, endpoint_url=URL)
-                boto3.resource = functools.partial(boto3.resource,
-                                                   endpoint_url=URL)
-            dynamodb = boto3.resource("dynamodb", region_name='us-east-1')
-            # fetch todo from the database
-            table= dynamodb.Table(os.environ['DYNAMODB_TABLE'])         
-        except ClientError as e:
-            print(e.response['Error']['Message'])
-            table= None     
+        URL = "http://localhost:8000"
+        if URL:
+            print('URL dynamoDB:'+URL)
+            boto3.client = functools.partial(boto3.client, 
+                                             endpoint_url=URL)
+            boto3.resource = functools.partial(boto3.resource,
+                                               endpoint_url=URL)
+        dynamodb = boto3.resource("dynamodb")
+    # fetch todo from the database
+    table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
     return table
 
 
