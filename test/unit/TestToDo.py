@@ -121,6 +121,24 @@ class TestDatabaseFunctions(unittest.TestCase):
             self.text,
             responseGet['text'])
         print ('End: test_get_todo')
+        
+        
+    def test_get_todo_exception(self):
+        print ('---------------------')
+        print ('Start: test_get_todo_exception')
+        from src.todoList import get_item
+        from src.todoList import put_item
+
+        # Testing file functions
+        #Don't create the table mock so we are not going to have id
+        responsePut={"idItem":null}
+        idItem = json.loads(responsePut)
+        responseGet = get_item(
+                idItem,
+                self.dynamodb)
+        print ('Response Get:' + str(responseGet))
+        print ('End: test_get_todo_exception')
+    
     
     def test_list_todo(self):
         print ('---------------------')
