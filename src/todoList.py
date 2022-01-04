@@ -6,10 +6,9 @@ import json
 import functools
 from botocore.exceptions import ClientError
 
-
 def get_table(dynamodb=None):
     if not dynamodb:
-        URL = os.environ['DYNAMODB_TABLE']
+        URL = os.environ['ENDPOINT_OVERRIDE']
         if URL:
             print('URL dynamoDB:'+URL)
             boto3.client = functools.partial(boto3.client, endpoint_url=URL)
@@ -17,7 +16,7 @@ def get_table(dynamodb=None):
                                                endpoint_url=URL)
         dynamodb = boto3.resource("dynamodb")
     # fetch todo from the database
-    table = dynamodb.Table(URL)
+    table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
     return table
 
 
