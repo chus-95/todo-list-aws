@@ -131,8 +131,7 @@ class TestDatabaseFunctions(unittest.TestCase):
 
         # Testing file functions
         #Don't create the table mock so we are not going to have id
-        responsePut={"idItem":None}
-        idItem = json.loads(responsePut)
+        idItem=None       
         print(idItem)
         responseGet_except = get_item(
                 idItem,
