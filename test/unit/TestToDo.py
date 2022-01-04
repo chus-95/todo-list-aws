@@ -133,10 +133,11 @@ class TestDatabaseFunctions(unittest.TestCase):
         #Don't create the table mock so we are not going to have id
         responsePut={"idItem":null}
         idItem = json.loads(responsePut)
-        responseGet = get_item(
+        print(idItem)
+        responseGet_except = get_item(
                 idItem,
                 self.dynamodb)
-        print ('Response Get:' + str(responseGet))
+        print ('responseGet_except:' + str(responseGet_except))
         print ('End: test_get_todo_exception')
     
     
