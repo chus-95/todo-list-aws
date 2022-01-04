@@ -48,8 +48,15 @@ class TestDatabaseFunctions(unittest.TestCase):
     def test_table_no_exists(self):
         print ('---------------------')
         print ('Start: test_table_no_exists')
-        tearDown(self)
+        #delete dynamodb
+        try:
+            self.table.delete()
+            self.dynamodb = None
+        except:
+            print("No funcionó el borrado de la tabla mock")
+        #run function from todoList.py
         from src.todoList import get_table
+        print(self.dynamodb)
         result = get_table(self.dynamodb)
         print ('Response GetTable' + str(result))
         print ('End: test_table_no_exists')
