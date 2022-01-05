@@ -292,13 +292,12 @@ class TestDatabaseFunctions(unittest.TestCase):
     def test_create_todo_table_error(self):
         print ('---------------------')
         print ('Start: test_create_todo_table_error')
-        from src.todoList import create_todo_table
+        from src.todoList import create_todo_table    
         # Testing file functions
-        table.table_status ='INACTIVE'
-        self.assertRaises(TypeError, create_todo_table(self.dynamodb))
-        self.assertRaises(Exception, create_todo_table(self.dynamodb))
-        result = create_todo_table(self.dynamodb)
-        self.assertNotEqual(result, self.table.name)
+        table = create_todo_table(None)
+        print(table.table_status)
+        # Testing file functions
+        self.assertNotEqual(table, self.table.name)
         print ('End: test_create_todo_table_error')
 
 
