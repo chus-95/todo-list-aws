@@ -14,7 +14,7 @@ def get_table(dynamodb=None):
         table = dynamodb.Table('DYNAMODB_TABLE')
     else:
         table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
-        home=os.environ['DYNAMODB_TABLE']
+        home = os.environ['DYNAMODB_TABLE']
         print("HOME:", home)
     return table
 
