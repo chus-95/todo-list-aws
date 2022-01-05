@@ -71,11 +71,26 @@ class TestDatabaseFunctions(unittest.TestCase):
         print('Table name:' + self.table.name)
         tableName = os.environ['DYNAMODB_TABLE'];
         # check if the table name is 'ToDo'
-        self.assertIn(tableName, self.table.name)
+        self.assertIn(tableName, self.table.name)        
         #self.assertIn('todoTable', self.table_local.name)
         print ('End: test_table_exists')
          
 
+    def test_put_todo(self):
+        print ('---------------------')
+        print ('Start: test_put_todo')
+        # Testing file functions
+        from src.todoList import put_item
+        # Table local
+        response = put_item(self.text, self.dynamodb)
+        print ('Response put_item:' + str(response))
+        self.assertEqual(200, response['statusCode'])
+        # Table mock
+        #self.assertEqual(200, put_item(self.text, self.dynamodb)[
+        #                 'ResponseMetadata']['HTTPStatusCode'])
+        print ('End: test_put_todo')
+        
+        
     def test_put_todo(self):
         print ('---------------------')
         print ('Start: test_put_todo')
@@ -96,7 +111,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Testing file functions
         from src.todoList import put_item
         # Table mock
-        self.assertRaises(Exception, put_item("", self.dynamodb))
         self.assertRaises(Exception, put_item("", self.dynamodb))
         print ('End: test_put_todo_error')
 
@@ -127,7 +141,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('---------------------')
         print ('Start: test_get_todo_exception')
         from src.todoList import get_item
-        from src.todoList import put_item
 
         # Testing file functions
         #Don't create the table mock so we are not going to have id
@@ -138,6 +151,36 @@ class TestDatabaseFunctions(unittest.TestCase):
                 self.dynamodb)
         print ('responseGet_except:' + str(responseGet_except))
         print ('End: test_get_todo_exception')
+        
+    def test_get_todo_exception_2(self):
+        print ('---------------------')
+        print ('Start: test_get_todo_exception_2')
+        from src.todoList import get_item
+        
+        responsePut = put_item(self.text, self.dynamodb)
+        print ('Response put_item:' + str(responsePut))
+        idItem = json.loads(responsePut['body'])['id']
+        print ('Id item:' + idItem)
+
+        # Testing file functions
+        #Don't create the table mock so we are not going to have id
+        self.assertRaises(
+            Exception,
+            get_item(
+                None,
+                self.dynamodb))
+        self.assertRaises(
+            Exception,
+            get_item(
+                None,
+                None))
+        self.assertRaises(
+            Exception,
+            get_item(
+                idItem,
+                None))
+        
+        print ('End: test_get_todo_exception_2')
     
     
     def test_list_todo(self):
@@ -233,7 +276,26 @@ class TestDatabaseFunctions(unittest.TestCase):
         from src.todoList import delete_item
         # Testing file functions
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
+        self.assertRaises(TypeError, delete_item("", None))
         print ('End: test_delete_todo_error')
+        
+    def test_create_todo_table(self):
+        print ('---------------------')
+        print ('Start: test_create_todo_table')
+        from src.todoList import create_todo_table
+        # Testing file functions
+        result = create_todo_table(self.dynamodb)       
+        print ('End: test_create_todo_table')
+        
+    def test_create_todo_table_error(self):
+        print ('---------------------')
+        print ('Start: test_create_todo_table_error')
+        from src.todoList import create_todo_table
+        # Testing file functions
+        table.table_status ='INACTIVE'
+        self.assertRaises(TypeError, create_todo_table(self.dynamodb))
+        self.assertRaises(Exception, create_todo_table(self.dynamodb))
+        print ('End: test_create_todo_table_error')
 
 
 
