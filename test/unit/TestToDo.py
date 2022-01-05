@@ -285,7 +285,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_create_todo_table')
         from src.todoList import create_todo_table
         # Testing file functions
-        result = create_todo_table(self.dynamodb)       
+        result = create_todo_table(self.dynamodb)
+        self.assertEqual(result, self.table.name)
         print ('End: test_create_todo_table')
         
     def test_create_todo_table_error(self):
@@ -296,6 +297,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         table.table_status ='INACTIVE'
         self.assertRaises(TypeError, create_todo_table(self.dynamodb))
         self.assertRaises(Exception, create_todo_table(self.dynamodb))
+        result = create_todo_table(self.dynamodb)
+        self.assertNotEqual(result, self.table.name)
         print ('End: test_create_todo_table_error')
 
 
