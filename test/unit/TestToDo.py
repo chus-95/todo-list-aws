@@ -267,7 +267,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         idItem = json.loads(responsePut['body'])['id']
         print ('Id item:' + idItem)
         delete_item(idItem, self.dynamodb)
-        print ('Item deleted succesfully')
+        print ('Item deleted succesfully' + idItem)
         self.assertTrue(len(get_items(self.dynamodb)) == 0)
         print ('End: test_delete_todo')
 
@@ -276,8 +276,8 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_delete_todo_error')
         from src.todoList import delete_item
         # Testing file functions
-        self.assertRaises(TypeError, delete_item(None, self.dynamodb))
-        self.assertRaises(TypeError, delete_item(None, None))
+        self.assertRaises(Exception, delete_item("", self.dynamodb))
+        self.assertRaises(Exception, delete_item(None, None))
         print ('End: test_delete_todo_error')
         
     def test_create_todo_table(self):
