@@ -11,7 +11,7 @@ def get_table(dynamodb=None):
     if not dynamodb:
         dynamodb = boto3.resource("dynamodb",
                                   region_name='us-east-1')
-        table = dynamodb.Table('todoUnitTestsTable')
+        table = dynamodb.Table('DYNAMODB_TABLE')
     else:
         table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
         home = os.environ['DYNAMODB_TABLE']
