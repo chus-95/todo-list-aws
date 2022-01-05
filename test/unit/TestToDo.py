@@ -294,7 +294,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_create_todo_table_error')
         from src.todoList import create_todo_table    
         # Testing file functions
-        table = create_todo_table(None)
+        table = create_todo_table(self.dynamodb)
         print(table.table_status)
         # Testing file functions
         self.assertNotEqual(table, self.table.name)
