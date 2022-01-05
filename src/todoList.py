@@ -18,7 +18,6 @@ def get_table(dynamodb=None):
         dynamodb = boto3.resource("dynamodb")
     # fetch todo from the database
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
-    
     return table
 
 
