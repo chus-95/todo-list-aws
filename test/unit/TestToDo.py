@@ -156,6 +156,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('---------------------')
         print ('Start: test_get_todo_exception_2')
         from src.todoList import get_item
+        from src.todoList import put_item
         
         responsePut = put_item(self.text, self.dynamodb)
         print ('Response put_item:' + str(responsePut))
