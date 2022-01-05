@@ -14,6 +14,8 @@ def get_table(dynamodb=None):
         table = dynamodb.Table('DYNAMODB_TABLE')
     else:
         table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
+        print('table created: '+table)
+        print(os.environ['DYNAMODB_TABLE'])
     return table
 
 
