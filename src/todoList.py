@@ -3,12 +3,12 @@ import boto3
 import time
 import uuid
 import json
-#import functools
+# import functools
 from botocore.exceptions import ClientError
 
 
 def get_table(dynamodb=None):
-    if not dynamodb:        
+    if not dynamodb:
         dynamodb = boto3.resource("dynamodb")
         table = dynamodb.Table('DYNAMODB_TABLE')
     return table
