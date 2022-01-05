@@ -11,6 +11,8 @@ def get_table(dynamodb=None):
     if not dynamodb:
         dynamodb = boto3.resource("dynamodb")
         table = dynamodb.Table('DYNAMODB_TABLE')
+    else:
+        table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
     return table
 
 
