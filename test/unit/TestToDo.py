@@ -136,12 +136,12 @@ class TestDatabaseFunctions(unittest.TestCase):
             responseGet['text'])
         print ('End: test_get_todo')
         
-        
+
     def test_get_todo_exception(self):
         print ('---------------------')
         print ('Start: test_get_todo_exception')
         from src.todoList import get_item
-
+        
         # Testing file functions
         #Don't create the table mock so we are not going to have id
         idItem=None       
@@ -182,7 +182,6 @@ class TestDatabaseFunctions(unittest.TestCase):
                 None))
         
         print ('End: test_get_todo_exception_2')
-    
     
     def test_list_todo(self):
         print ('---------------------')
