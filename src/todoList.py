@@ -18,11 +18,16 @@ def get_table(dynamodb=None):
         dynamodb = boto3.resource("dynamodb")
     # fetch todo from the database
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
+    
+    else:
+        print('DynamoDb exists')
+        
     return table
 
 
 def get_item(key, dynamodb=None):
     table = get_table(dynamodb)
+    print(table)
     try:
         result = table.get_item(
             Key={
