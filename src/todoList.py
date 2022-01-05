@@ -19,9 +19,6 @@ def get_table(dynamodb=None):
     # fetch todo from the database
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
     
-    else:
-        print('DynamoDb exists')
-        
     return table
 
 
