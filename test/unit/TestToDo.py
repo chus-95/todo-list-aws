@@ -74,21 +74,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertIn(tableName, self.table.name)        
         #self.assertIn('todoTable', self.table_local.name)
         print ('End: test_table_exists')
-         
-
-    def test_put_todo(self):
-        print ('---------------------')
-        print ('Start: test_put_todo')
-        # Testing file functions
-        from src.todoList import put_item
-        # Table local
-        response = put_item(self.text, self.dynamodb)
-        print ('Response put_item:' + str(response))
-        self.assertEqual(200, response['statusCode'])
-        # Table mock
-        #self.assertEqual(200, put_item(self.text, self.dynamodb)[
-        #                 'ResponseMetadata']['HTTPStatusCode'])
-        print ('End: test_put_todo')
+        
         
         
     def test_put_todo(self):
