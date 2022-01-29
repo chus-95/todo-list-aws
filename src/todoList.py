@@ -3,26 +3,25 @@ import boto3
 import time
 import uuid
 import json
-import functools
+# import functools
 from botocore.exceptions import ClientError
 
 
 def get_table(dynamodb=None):
     if not dynamodb:
-        URL = os.environ['ENDPOINT_OVERRIDE']
-        if URL:
-            print('URL dynamoDB:'+URL)
-            boto3.client = functools.partial(boto3.client, endpoint_url=URL)
-            boto3.resource = functools.partial(boto3.resource,
-                                               endpoint_url=URL)
-        dynamodb = boto3.resource("dynamodb")
-    # fetch todo from the database
-    table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
+        dynamodb = boto3.resource("dynamodb",
+                                  region_name='us-east-1')
+        table = dynamodb.Table('DYNAMODB_TABLE')
+    else:
+        table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
+        home = os.environ['DYNAMODB_TABLE']
+        print("HOME:", home)
     return table
 
 
 def get_item(key, dynamodb=None):
     table = get_table(dynamodb)
+    print(table)
     try:
         result = table.get_item(
             Key={
@@ -109,11 +108,13 @@ def delete_item(key, dynamodb=None):
                 'id': key
             }
         )
-
+        print('delete item')
     except ClientError as e:
+        print('error')
         print(e.response['Error']['Message'])
     else:
-        return
+        print('else')
+        return table
 
 
 def create_todo_table(dynamodb):
